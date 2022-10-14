@@ -44,8 +44,18 @@ namespace MatthewWierenga_ST10092988_Part1
             set { mapheight = value; }
         }
 
+
+        private Item[] items;
+
+        public Item[] ITEMS
+        {
+            get { return items; }
+            set { items = value; }
+        }
+
         int hX;
         int hY;
+        int totalItems;
 
         protected Random RANDOM_NUMBER_GENERATOR = new Random();
 
@@ -188,12 +198,27 @@ namespace MatthewWierenga_ST10092988_Part1
                         SwampCreature NewEnemy = new SwampCreature(EnemyX, EnemyY, TypeOfTile, "S", 100, 100, 10);
                         ENEMIES.Add(NewEnemy);
                         MAPCONTAINER[EnemyX, EnemyY] = NewEnemy;
-                    }else if(RANDOM_NUMBER_GENERATOR.Next(1, 3) == 2)
+                    }
+                    else if (RANDOM_NUMBER_GENERATOR.Next(1, 3) == 2)
                     {
-                        Mage newEnemy = new Mage(EnemyX,EnemyY,TypeOfTile,"M",100,100,10);
+                        Mage newEnemy = new Mage(EnemyX, EnemyY, TypeOfTile, "M", 100, 100, 10);
                         ENEMIES.Add(newEnemy);
                         MAPCONTAINER[EnemyX, EnemyY] = newEnemy;
                     }
+
+                    break;
+                case TileType.Gold:
+                    int GoldX = RANDOM_NUMBER_GENERATOR.Next(0, MAPWIDTH);
+                    int GoldY = RANDOM_NUMBER_GENERATOR.Next(0, MAPHEIGHT);
+
+                    while (MAPCONTAINER[GoldX, GoldY].TYPEOFTILE != TileType.Empty)
+                    {
+                        GoldX = RANDOM_NUMBER_GENERATOR.Next(0, MAPWIDTH);
+                        GoldY = RANDOM_NUMBER_GENERATOR.Next(0, MAPHEIGHT);
+                    }
+
+                    ITEMS[totalItems] = new Gold(GoldX, GoldY, "$", TileType.Gold);
+                    MAPCONTAINER[GoldX, GoldY] = ITEMS[totalItems];
 
                     break;
             }
@@ -212,6 +237,28 @@ namespace MatthewWierenga_ST10092988_Part1
                 MapString += "\n";
             }
             return MapString;
+        }
+        public Item GetItemAtPosition(int x, int y)
+        {
+            Item artifact = null;
+
+            for (int i = 0; i < ITEMS.Length; i++)
+            {
+                if (ITEMS[i].X == x && ITEMS[i].Y == y)
+                {
+                    artifact = ITEMS[i];
+                    ITEMS[i] = null;
+                }
+            }
+
+            if (artifact == null)
+            {
+                return null;
+            }
+            else
+            {
+                return artifact;
+            }
         }
     }
 }
