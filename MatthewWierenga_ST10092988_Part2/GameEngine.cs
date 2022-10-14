@@ -22,6 +22,16 @@ namespace MatthewWierenga_ST10092988_Part1
             GAMEMAP = new Map(10, 10, 10, 10, 5, 5);
         }
 
+        public void Save()
+        {
+
+        }
+
+        public void Load()
+        {
+
+        }
+
 
         public bool MovePlayer(MovementDirection Direction)
         {
