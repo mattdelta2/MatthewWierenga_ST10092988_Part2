@@ -103,7 +103,7 @@ namespace MatthewWierenga_ST10092988_Part2
         {
             StreamWriter tw = new StreamWriter("C:\\Users\\mattw\\OneDrive\\Desktop\\VEGA\\SEM2\\GADE6122\\MatthewWierenga_ST10092988_Part2.txt");
             tw.Write(lblMap.Text);
-            lblSave.Text = "Saved to Desktop as MatthewWierenga_ST10092988_Part2.txt";
+            lblMap.Text = "Saved to Desktop as MatthewWierenga_ST10092988_Part2.txt";
             tw.Close();
         }
 

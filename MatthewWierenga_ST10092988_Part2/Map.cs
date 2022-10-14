@@ -69,11 +69,13 @@ namespace MatthewWierenga_ST10092988_Part1
 
             ENEMIES = new List<Enemy>();
 
-            GenerateInitialMap(_NUMBEROFENEMIES);
+            ITEMS = new Item[_NUMBEROFITEMS];
+
+            GenerateInitialMap(_NUMBEROFENEMIES, _NUMBEROFITEMS);
 
             UpdateVision();
 
-
+            totalItems = _NUMBEROFITEMS;
         }
 
         public void UpdateVision()
@@ -128,7 +130,7 @@ namespace MatthewWierenga_ST10092988_Part1
             int t = 0;
         }
 
-        void GenerateInitialMap(int _NUMBEROFENEMIES)
+        void GenerateInitialMap(int _NUMBEROFENEMIES, int _NUMBEROFITEMS)
         {
             for (int y = 0; y < MAPWIDTH; y++)
             {
@@ -151,6 +153,11 @@ namespace MatthewWierenga_ST10092988_Part1
             {
                 Create(TileType.Enemy);
             }
+            for(int e =0; e < _NUMBEROFITEMS;e++)
+            {
+                Create(TileType.Gold);
+            }
+            
 
 
         }
