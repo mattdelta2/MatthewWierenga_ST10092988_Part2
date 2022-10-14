@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MatthewWierenga_ST10092988_Part2;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -187,6 +188,11 @@ namespace MatthewWierenga_ST10092988_Part1
                         SwampCreature NewEnemy = new SwampCreature(EnemyX, EnemyY, TypeOfTile, "S", 100, 100, 10);
                         ENEMIES.Add(NewEnemy);
                         MAPCONTAINER[EnemyX, EnemyY] = NewEnemy;
+                    }else if(RANDOM_NUMBER_GENERATOR.Next(1, 3) == 2)
+                    {
+                        Mage newEnemy = new Mage(EnemyX,EnemyY,TypeOfTile,"M",100,100,10);
+                        ENEMIES.Add(newEnemy);
+                        MAPCONTAINER[EnemyX, EnemyY] = newEnemy;
                     }
 
                     break;
