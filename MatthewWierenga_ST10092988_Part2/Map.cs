@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MatthewWierenga_ST10092988_Part2;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,8 +44,18 @@ namespace MatthewWierenga_ST10092988_Part1
             set { mapheight = value; }
         }
 
+
+        private Item[] items;
+
+        public Item[] ITEMS
+        {
+            get { return items; }
+            set { items = value; }
+        }
+
         int hX;
         int hY;
+        int totalItems;
 
         protected Random RANDOM_NUMBER_GENERATOR = new Random();
 
@@ -58,11 +69,13 @@ namespace MatthewWierenga_ST10092988_Part1
 
             ENEMIES = new List<Enemy>();
 
-            GenerateInitialMap(_NUMBEROFENEMIES);
+            ITEMS = new Item[_NUMBEROFITEMS];
+
+            GenerateInitialMap(_NUMBEROFENEMIES, _NUMBEROFITEMS);
 
             UpdateVision();
 
-
+            totalItems = _NUMBEROFITEMS;
         }
 
         public void UpdateVision()
@@ -117,7 +130,7 @@ namespace MatthewWierenga_ST10092988_Part1
             int t = 0;
         }
 
-        void GenerateInitialMap(int _NUMBEROFENEMIES)
+        void GenerateInitialMap(int _NUMBEROFENEMIES, int _NUMBEROFITEMS)
         {
             for (int y = 0; y < MAPWIDTH; y++)
             {
@@ -140,6 +153,11 @@ namespace MatthewWierenga_ST10092988_Part1
             {
                 Create(TileType.Enemy);
             }
+            for(int e =0; e < _NUMBEROFITEMS;e++)
+            {
+                Create(TileType.Gold);
+            }
+            
 
 
         }
@@ -188,6 +206,26 @@ namespace MatthewWierenga_ST10092988_Part1
                         ENEMIES.Add(NewEnemy);
                         MAPCONTAINER[EnemyX, EnemyY] = NewEnemy;
                     }
+                    else if (RANDOM_NUMBER_GENERATOR.Next(1, 3) == 2)
+                    {
+                        Mage newEnemy = new Mage(EnemyX, EnemyY, TypeOfTile, "M", 100, 100, 10);
+                        ENEMIES.Add(newEnemy);
+                        MAPCONTAINER[EnemyX, EnemyY] = newEnemy;
+                    }
+
+                    break;
+                case TileType.Gold:
+                    int GoldX = RANDOM_NUMBER_GENERATOR.Next(0, MAPWIDTH);
+                    int GoldY = RANDOM_NUMBER_GENERATOR.Next(0, MAPHEIGHT);
+
+                    while (MAPCONTAINER[GoldX, GoldY].TYPEOFTILE != TileType.Empty)
+                    {
+                        GoldX = RANDOM_NUMBER_GENERATOR.Next(0, MAPWIDTH);
+                        GoldY = RANDOM_NUMBER_GENERATOR.Next(0, MAPHEIGHT);
+                    }
+
+                    ITEMS[totalItems] = new Gold(GoldX, GoldY, "$", TileType.Gold);
+                    MAPCONTAINER[GoldX, GoldY] = ITEMS[totalItems];
 
                     break;
             }
@@ -206,6 +244,28 @@ namespace MatthewWierenga_ST10092988_Part1
                 MapString += "\n";
             }
             return MapString;
+        }
+        public Item GetItemAtPosition(int x, int y)
+        {
+            Item artifact = null;
+
+            for (int i = 0; i < ITEMS.Length; i++)
+            {
+                if (ITEMS[i].X == x && ITEMS[i].Y == y)
+                {
+                    artifact = ITEMS[i];
+                    ITEMS[i] = null;
+                }
+            }
+
+            if (artifact == null)
+            {
+                return null;
+            }
+            else
+            {
+                return artifact;
+            }
         }
     }
 }
