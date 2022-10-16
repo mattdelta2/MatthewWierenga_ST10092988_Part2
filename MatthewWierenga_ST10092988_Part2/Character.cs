@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MatthewWierenga_ST10092988_Part2;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -51,6 +52,12 @@ namespace MatthewWierenga_ST10092988_Part1
             }
 
         }
+        protected List<Item> goldpurse;
+        public List<Item> GOLDPURSE
+        {
+            get { return goldpurse; }
+            set { goldpurse = value; }
+        }
 
         protected Character(int _X, int _Y, TileType _TYPEOFTILE, string _SYMBOL, int _HP, int _MAXHP, int _DAMAGE) : base(_X, _Y, _SYMBOL, _TYPEOFTILE)
         {
@@ -58,6 +65,7 @@ namespace MatthewWierenga_ST10092988_Part1
             HP = _HP;
             Maxhp = _MAXHP;
             Damage = _DAMAGE;
+            GOLDPURSE = new List<Item>();
             Vision = new List<Tile>();
         }
 
@@ -120,6 +128,13 @@ namespace MatthewWierenga_ST10092988_Part1
                 case MovementDirection.Right:
                     X++;
                     break;
+            }
+        }
+        public void PickUp(Item i)
+        {
+            if (i.SYMBOL == "$")
+            {
+                GOLDPURSE.Add(i);
             }
         }
 

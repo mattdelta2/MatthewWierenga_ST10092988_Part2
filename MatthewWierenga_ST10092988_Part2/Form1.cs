@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -98,6 +99,28 @@ namespace MatthewWierenga_ST10092988_Part2
             rtbSelectedEnemy.Text = GM.GAMEMAP.ENEMIES[cbxEnemies.SelectedIndex].ToString();
         }
 
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            StreamWriter tw = new StreamWriter("C:\\Users\\mattw\\OneDrive\\Desktop\\VEGA\\SEM2\\GADE6122\\MatthewWierenga_ST10092988_Part2.txt");
+            tw.Write(lblMap.Text);
+            lblMap.Text = "Saved to Desktop as MatthewWierenga_ST10092988_Part2.txt";
+            tw.Close();
+        }
+
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            Stream st;
+            OpenFileDialog d1 = new OpenFileDialog();
+            if(d1.ShowDialog() == DialogResult.OK)
+            {
+                if((st =d1.OpenFile()) !=null)
+                {
+                    string file = d1.FileName;
+                    string str = File.ReadAllText(file);
+                    lblMap.Text = str;
+                }
+            }
+        }
     }
 }
 

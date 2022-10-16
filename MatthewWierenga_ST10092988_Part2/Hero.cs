@@ -28,6 +28,7 @@ namespace MatthewWierenga_ST10092988_Part1
             Info += "HP: " + HP.ToString() + "/" + Maxhp.ToString() + "\n";
             Info += "Damage: " + Damage.ToString() + "\n";
             Info += "[" + X.ToString() + "," + Y.ToString() + "] \n";
+            Info += " Amount of gold: " + GOLDPURSE.Count + "\n";
             return Info;
         }
 
