@@ -73,9 +73,10 @@ namespace MatthewWierenga_ST10092988_Part1
 
             GenerateInitialMap(_NUMBEROFENEMIES, _NUMBEROFITEMS);
 
-            UpdateVision();
+            
 
             totalItems = _NUMBEROFITEMS;
+            UpdateVision();
         }
 
         public void UpdateVision()
